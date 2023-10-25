@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h1>게시판</h1>
+    <button onclick="location.href='/sub'">글쓰기</button>
+    <div id="posts"></div>
+    <script>
+        // AJAX를 사용하여 게시물 목록을 가져와서 표시
+        fetch('/getPosts')
+            .then(response => response.json())
+            .then(posts => {
+                const postsDiv = document.getElementById('posts');
+                posts.forEach(post => {
+                    const postDiv = document.createElement('div');
+                    postDiv.innerHTML = `<h2>${post.title}</h2><p>${post.text}</p>`;
+                    postsDiv.appendChild(postDiv);
+                });
+            });
+    </script>
+</body>
+</html>
